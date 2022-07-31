@@ -1,3 +1,4 @@
+################## Following is the heap solution ######################
 import heapq
 
 class Solution:
@@ -36,3 +37,44 @@ class Solution:
                 
         # return
         return -heap[0]
+    
+    
+    
+    
+#################### Following is the binary search solution ############################
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        # Purpose: find kth smallest element in a sorted (a. for r & c) matrix
+        # Method: Binary Search
+        # Intuition: count elements that is <= mid. if count < k, check right; else, check left
+        
+        # init
+        left = matrix[0][0]
+        right = matrix[-1][-1]
+        
+        # find 
+        while left < right:
+            
+            mid = (left + right) // 2
+            
+            count = self.find_count(matrix, mid)
+            
+            if count < k:
+                left = mid + 1
+                
+            else:
+                right = mid
+        
+        # return
+        return left
+    
+    
+    def find_count(self, matrix, mid):
+        count = 0
+        
+        for row in range(len(matrix)):
+            for col in range(len(matrix[0])):
+                if matrix[row][col] <= mid:
+                    count += 1
+        
+        return count
